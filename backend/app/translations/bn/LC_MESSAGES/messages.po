@@ -1,0 +1,362 @@
+# Bangla translations for Avirat.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the Avirat project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Avirat VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-04 16:09+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: bn\n"
+"Language-Team: bn <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "action.continue"
+msgstr "এগিয়ে যান"
+
+msgid "action.edit"
+msgstr "সম্পাদনা"
+
+msgid "action.save"
+msgstr "সংরক্ষণ করুন"
+
+msgid "action.search"
+msgstr "খুঁজুন"
+
+msgid "api.error.account_blocked"
+msgstr "এই অ্যাকাউন্ট আর সক্রিয় নেই।"
+
+msgid "api.error.account_locked"
+msgstr "বহুবার ভুল চেষ্টার কারণে এই অ্যাকাউন্ট লক হয়ে গেছে। খোলার জন্য ম্যানেজারকে বলুন।"
+
+msgid "api.error.bad_request"
+msgstr "কিছু তথ্য নেই বা ভুল আছে।"
+
+msgid "api.error.device_in_use"
+msgstr "এই ফোন অন্য অ্যাকাউন্টের সঙ্গে যুক্ত। রিসেট করতে ম্যানেজারকে বলুন।"
+
+msgid "api.error.device_mismatch"
+msgstr "এই অ্যাকাউন্ট অন্য ফোনের সঙ্গে যুক্ত। রিসেট করতে ম্যানেজারকে বলুন।"
+
+msgid "api.error.forbidden"
+msgstr "আপনার এর অনুমতি নেই।"
+
+msgid "api.error.invalid_credentials"
+msgstr "কর্মচারী আইডি বা পাসওয়ার্ড ভুল।"
+
+msgid "api.error.invalid_language"
+msgstr "এই ভাষা পাওয়া যায় না।"
+
+msgid "api.error.invalid_token"
+msgstr "অনুগ্রহ করে আবার সাইন ইন করুন।"
+
+msgid "api.error.method_not_allowed"
+msgstr "এখানে এই কাজটি করা যায় না।"
+
+msgid "api.error.no_web_access"
+msgstr "এই অ্যাকাউন্টের কোনো ওয়েব স্ক্রিন নেই। ফোন অ্যাপ ব্যবহার করুন।"
+
+msgid "api.error.not_found"
+msgstr "পাওয়া যায়নি।"
+
+msgid "api.error.password_change_required"
+msgstr "আগে আপনার পাসওয়ার্ড বদলান।"
+
+msgid "api.error.password_same"
+msgstr "নতুন পাসওয়ার্ড বর্তমানটির থেকে আলাদা হতে হবে।"
+
+msgid "api.error.password_too_short"
+msgstr "নতুন পাসওয়ার্ডে কমপক্ষে %(min)s অক্ষর থাকতে হবে।"
+
+msgid "api.error.server_error"
+msgstr "সার্ভারে কিছু সমস্যা হয়েছে।"
+
+msgid "api.error.token_reused"
+msgstr "নিরাপত্তার জন্য এই ফোন সাইন আউট করা হয়েছে। অনুগ্রহ করে আবার সাইন ইন করুন।"
+
+msgid "api.error.unauthorized"
+msgstr "অনুগ্রহ করে আবার সাইন ইন করুন।"
+
+msgid "app.name"
+msgstr "অবিরত"
+
+msgid "auth.field.confirm_password"
+msgstr "নতুন পাসওয়ার্ড আবার"
+
+msgid "auth.field.current_password"
+msgstr "বর্তমান পাসওয়ার্ড"
+
+msgid "auth.field.new_password"
+msgstr "নতুন পাসওয়ার্ড"
+
+msgid "auth.field.password"
+msgstr "পাসওয়ার্ড"
+
+msgid "auth.field.totp_code"
+msgstr "৬ অঙ্কের কোড"
+
+msgid "auth.field.totp_or_recovery"
+msgstr "৬ অঙ্কের কোড বা রিকভারি কোড"
+
+msgid "auth.login.submit"
+msgstr "সাইন ইন করুন"
+
+msgid "auth.login.title"
+msgstr "সাইন ইন"
+
+msgid "auth.password.changed"
+msgstr "পাসওয়ার্ড বদলানো হয়েছে।"
+
+msgid "auth.password.confirm_differs"
+msgstr "দুটি নতুন পাসওয়ার্ড মিলছে না।"
+
+msgid "auth.password.current_wrong"
+msgstr "বর্তমান পাসওয়ার্ড ভুল।"
+
+msgid "auth.password.rule"
+msgstr "কমপক্ষে %(min)s অক্ষর।"
+
+msgid "auth.password.title"
+msgstr "পাসওয়ার্ড বদলান"
+
+msgid "auth.recovery.help"
+msgstr "ফোন হারালে প্রতিটি কোড একবার কাজ করে। এগুলো আর দেখানো হবে না, তাই এখনই প্রিন্ট করুন বা লিখে রাখুন।"
+
+msgid "auth.recovery.title"
+msgstr "আপনার রিকভারি কোড সংরক্ষণ করুন"
+
+msgid "auth.totp.confirm"
+msgstr "নিশ্চিত করুন"
+
+msgid "auth.totp.enroll_help"
+msgstr "ফোনের অথেন্টিকেটর অ্যাপ দিয়ে এই কোডটি স্ক্যান করুন, তারপর সেখানে দেখানো ৬ অঙ্কের কোডটি লিখুন।"
+
+msgid "auth.totp.enroll_title"
+msgstr "অথেন্টিকেটর সেট করুন"
+
+msgid "auth.totp.invalid"
+msgstr "এই কোডটি সঠিক নয়।"
+
+msgid "auth.totp.manual_key"
+msgstr "স্ক্যান হচ্ছে না? এই কী লিখুন:"
+
+msgid "auth.totp.qr_alt"
+msgstr "অথেন্টিকেটর অ্যাপের জন্য QR কোড"
+
+msgid "auth.totp.verify_help"
+msgstr "অথেন্টিকেটর অ্যাপের কোড লিখুন। ফোন কাছে না থাকলে রিকভারি কোড ব্যবহার করুন।"
+
+msgid "auth.totp.verify_title"
+msgstr "আপনার কোড লিখুন"
+
+msgid "error.bad_request"
+msgstr "অনুরোধটি সম্পন্ন করা যায়নি। ফিরে গিয়ে আবার চেষ্টা করুন।"
+
+msgid "error.forbidden"
+msgstr "এই পেজে আপনার অনুমতি নেই।"
+
+msgid "error.not_found"
+msgstr "পেজ পাওয়া যায়নি।"
+
+msgid "error.server"
+msgstr "সার্ভারে কিছু সমস্যা হয়েছে।"
+
+msgid "home.empty"
+msgstr "আপনার জন্য এখনও কোনো স্ক্রিন খোলা নেই।"
+
+msgid "home.title"
+msgstr "হোম"
+
+msgid "language.bn"
+msgstr "বাংলা"
+
+msgid "language.en"
+msgstr "English"
+
+msgid "language.hi"
+msgstr "हिन्दी"
+
+msgid "nav.home"
+msgstr "হোম"
+
+msgid "nav.logout"
+msgstr "সাইন আউট"
+
+msgid "people.bound"
+msgstr "যুক্ত"
+
+msgid "people.device_reset"
+msgstr "ফোনের সংযোগ রিসেট হয়েছে। পরবর্তী যে ফোনে সাইন ইন হবে সেটি যুক্ত হবে।"
+
+msgid "people.error.duplicate"
+msgstr "এই কর্মচারী আইডি আগে থেকেই আছে।"
+
+msgid "people.error.required"
+msgstr "অনুগ্রহ করে সব প্রয়োজনীয় তথ্য সঠিকভাবে পূরণ করুন।"
+
+msgid "people.error.role"
+msgstr "আপনি এই ভূমিকা দিতে পারবেন না।"
+
+msgid "people.field.employee_code"
+msgstr "কর্মচারী আইডি"
+
+msgid "people.field.language"
+msgstr "ভাষা"
+
+msgid "people.field.name"
+msgstr "নাম"
+
+msgid "people.field.phone"
+msgstr "ফোন নম্বর"
+
+msgid "people.field.phone_bound"
+msgstr "যুক্ত ফোন"
+
+msgid "people.field.role"
+msgstr "ভূমিকা"
+
+msgid "people.field.status"
+msgstr "অবস্থা"
+
+msgid "people.locked"
+msgstr "লক"
+
+msgid "people.new"
+msgstr "নতুন কর্মী যোগ করুন"
+
+msgid "people.otp.help"
+msgstr "এটি এখনই সেই কর্মীকে দিন। এটি কোথাও সংরক্ষিত হয় না এবং আর দেখানো হবে না। প্রথম সাইন ইনে এটি বদলাতে হবে।"
+
+msgid "people.otp.title"
+msgstr "এককালীন পাসওয়ার্ড"
+
+msgid "people.reset_device"
+msgstr "ফোন রিসেট করুন"
+
+msgid "people.reset_password"
+msgstr "পাসওয়ার্ড রিসেট করুন"
+
+msgid "people.reset_to_template"
+msgstr "ভূমিকা বদলালে অনুমতি নতুন ভূমিকার টেমপ্লেটে রিসেট করুন"
+
+msgid "people.saved"
+msgstr "সংরক্ষণ করা হয়েছে।"
+
+msgid "people.status.active"
+msgstr "সক্রিয়"
+
+msgid "people.status.blocked"
+msgstr "ব্লক করা"
+
+msgid "people.status.left"
+msgstr "কোম্পানি ছেড়েছেন"
+
+msgid "people.unlock"
+msgstr "আনলক করুন"
+
+msgid "people.unlocked"
+msgstr "অ্যাকাউন্ট আনলক হয়েছে।"
+
+msgid "permissions.act"
+msgstr "বদলানো"
+
+msgid "permissions.screen"
+msgstr "স্ক্রিন"
+
+msgid "permissions.view"
+msgstr "দেখা"
+
+msgid "profile.title"
+msgstr "আমার প্রোফাইল"
+
+msgid "role.admin"
+msgstr "অ্যাডমিন"
+
+msgid "role.line_operator"
+msgstr "লাইন অপারেটর"
+
+msgid "role.maintenance_incharge"
+msgstr "মেইনটেন্যান্স ইনচার্জ"
+
+msgid "role.manager"
+msgstr "ম্যানেজার"
+
+msgid "role.production_incharge"
+msgstr "প্রোডাকশন ইনচার্জ"
+
+msgid "role.store"
+msgstr "স্টোর"
+
+msgid "role.super_admin"
+msgstr "সুপার অ্যাডমিন"
+
+msgid "role.technician"
+msgstr "টেকনিশিয়ান"
+
+msgid "role.viewer"
+msgstr "দর্শক"
+
+msgid "screen.absences"
+msgstr "অনুপস্থিতি"
+
+msgid "screen.app_incharge"
+msgstr "ফোন অ্যাপ: গ্রুপ ইনচার্জ"
+
+msgid "screen.app_manager"
+msgstr "ফোন অ্যাপ: ম্যানেজার"
+
+msgid "screen.app_raise"
+msgstr "ফোন অ্যাপ: টিকিট তোলা"
+
+msgid "screen.app_technician"
+msgstr "ফোন অ্যাপ: টেকনিশিয়ান"
+
+msgid "screen.groups"
+msgstr "গ্রুপ"
+
+msgid "screen.lines"
+msgstr "লাইন"
+
+msgid "screen.machine_types"
+msgstr "মেশিনের ধরন"
+
+msgid "screen.machines"
+msgstr "মেশিন"
+
+msgid "screen.part_requests"
+msgstr "পার্টসের অনুরোধ"
+
+msgid "screen.parts"
+msgstr "পার্টস রেজিস্টার"
+
+msgid "screen.people"
+msgstr "কর্মীরা"
+
+msgid "screen.people_unlock"
+msgstr "আনলক ও ফোন রিসেট"
+
+msgid "screen.permissions"
+msgstr "অনুমতি"
+
+msgid "screen.places"
+msgstr "স্থান"
+
+msgid "screen.schedule"
+msgstr "সময়সূচি"
+
+msgid "screen.settings"
+msgstr "সেটিংস"
+
+msgid "screen.shifts"
+msgstr "শিফট"
+
+msgid "screen.ticket_board"
+msgstr "টিকিট বোর্ড"
+

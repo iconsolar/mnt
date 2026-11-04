@@ -1,0 +1,362 @@
+# English translations for Avirat.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the Avirat project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Avirat VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-04 16:09+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "action.continue"
+msgstr "Continue"
+
+msgid "action.edit"
+msgstr "Edit"
+
+msgid "action.save"
+msgstr "Save"
+
+msgid "action.search"
+msgstr "Search"
+
+msgid "api.error.account_blocked"
+msgstr "This account is no longer active."
+
+msgid "api.error.account_locked"
+msgstr "This account is locked after too many failed tries. Ask your manager to unlock it."
+
+msgid "api.error.bad_request"
+msgstr "Some details are missing or wrong."
+
+msgid "api.error.device_in_use"
+msgstr "This phone is bound to another account. Ask your manager to reset it."
+
+msgid "api.error.device_mismatch"
+msgstr "This account is bound to another phone. Ask your manager to reset it."
+
+msgid "api.error.forbidden"
+msgstr "You don't have permission for this."
+
+msgid "api.error.invalid_credentials"
+msgstr "Wrong employee ID or password."
+
+msgid "api.error.invalid_language"
+msgstr "That language is not available."
+
+msgid "api.error.invalid_token"
+msgstr "Please sign in again."
+
+msgid "api.error.method_not_allowed"
+msgstr "This action is not allowed here."
+
+msgid "api.error.no_web_access"
+msgstr "This account has no web screens. Use the phone app."
+
+msgid "api.error.not_found"
+msgstr "Not found."
+
+msgid "api.error.password_change_required"
+msgstr "Please change your password first."
+
+msgid "api.error.password_same"
+msgstr "The new password must be different from the current one."
+
+msgid "api.error.password_too_short"
+msgstr "The new password needs at least %(min)s characters."
+
+msgid "api.error.server_error"
+msgstr "Something went wrong on the server."
+
+msgid "api.error.token_reused"
+msgstr "For safety, this phone was signed out. Please sign in again."
+
+msgid "api.error.unauthorized"
+msgstr "Please sign in again."
+
+msgid "app.name"
+msgstr "Avirat"
+
+msgid "auth.field.confirm_password"
+msgstr "New password again"
+
+msgid "auth.field.current_password"
+msgstr "Current password"
+
+msgid "auth.field.new_password"
+msgstr "New password"
+
+msgid "auth.field.password"
+msgstr "Password"
+
+msgid "auth.field.totp_code"
+msgstr "6-digit code"
+
+msgid "auth.field.totp_or_recovery"
+msgstr "6-digit code or recovery code"
+
+msgid "auth.login.submit"
+msgstr "Sign in"
+
+msgid "auth.login.title"
+msgstr "Sign in"
+
+msgid "auth.password.changed"
+msgstr "Password changed."
+
+msgid "auth.password.confirm_differs"
+msgstr "The two new passwords don't match."
+
+msgid "auth.password.current_wrong"
+msgstr "The current password is wrong."
+
+msgid "auth.password.rule"
+msgstr "At least %(min)s characters."
+
+msgid "auth.password.title"
+msgstr "Change password"
+
+msgid "auth.recovery.help"
+msgstr "Each code works once, if you lose your phone. They won't be shown again, so print them or write them down now."
+
+msgid "auth.recovery.title"
+msgstr "Save your recovery codes"
+
+msgid "auth.totp.confirm"
+msgstr "Confirm"
+
+msgid "auth.totp.enroll_help"
+msgstr "Scan this code with an authenticator app on your phone, then type the 6-digit code it shows."
+
+msgid "auth.totp.enroll_title"
+msgstr "Set up your authenticator"
+
+msgid "auth.totp.invalid"
+msgstr "That code is not valid."
+
+msgid "auth.totp.manual_key"
+msgstr "Can't scan? Enter this key:"
+
+msgid "auth.totp.qr_alt"
+msgstr "QR code for the authenticator app"
+
+msgid "auth.totp.verify_help"
+msgstr "Type the code from your authenticator app. If you don't have your phone, use a recovery code."
+
+msgid "auth.totp.verify_title"
+msgstr "Enter your code"
+
+msgid "error.bad_request"
+msgstr "That request could not be processed. Go back and try again."
+
+msgid "error.forbidden"
+msgstr "You don't have access to this page."
+
+msgid "error.not_found"
+msgstr "Page not found."
+
+msgid "error.server"
+msgstr "Something went wrong on the server."
+
+msgid "home.empty"
+msgstr "No screens are open to you yet."
+
+msgid "home.title"
+msgstr "Home"
+
+msgid "language.bn"
+msgstr "বাংলা"
+
+msgid "language.en"
+msgstr "English"
+
+msgid "language.hi"
+msgstr "हिन्दी"
+
+msgid "nav.home"
+msgstr "Home"
+
+msgid "nav.logout"
+msgstr "Sign out"
+
+msgid "people.bound"
+msgstr "Bound"
+
+msgid "people.device_reset"
+msgstr "Phone binding reset. The next phone to sign in gets bound."
+
+msgid "people.error.duplicate"
+msgstr "This employee ID already exists."
+
+msgid "people.error.required"
+msgstr "Please fill in every required field correctly."
+
+msgid "people.error.role"
+msgstr "You can't give this role."
+
+msgid "people.field.employee_code"
+msgstr "Employee ID"
+
+msgid "people.field.language"
+msgstr "Language"
+
+msgid "people.field.name"
+msgstr "Name"
+
+msgid "people.field.phone"
+msgstr "Phone number"
+
+msgid "people.field.phone_bound"
+msgstr "Bound phone"
+
+msgid "people.field.role"
+msgstr "Role"
+
+msgid "people.field.status"
+msgstr "Status"
+
+msgid "people.locked"
+msgstr "Locked"
+
+msgid "people.new"
+msgstr "Add a person"
+
+msgid "people.otp.help"
+msgstr "Give this to the person now. It is not stored and won't be shown again. It must be changed at first sign-in."
+
+msgid "people.otp.title"
+msgstr "One-time password"
+
+msgid "people.reset_device"
+msgstr "Reset phone"
+
+msgid "people.reset_password"
+msgstr "Reset password"
+
+msgid "people.reset_to_template"
+msgstr "If the role changes, reset permissions to the new role's template"
+
+msgid "people.saved"
+msgstr "Saved."
+
+msgid "people.status.active"
+msgstr "Active"
+
+msgid "people.status.blocked"
+msgstr "Blocked"
+
+msgid "people.status.left"
+msgstr "Left the company"
+
+msgid "people.unlock"
+msgstr "Unlock"
+
+msgid "people.unlocked"
+msgstr "Account unlocked."
+
+msgid "permissions.act"
+msgstr "Change"
+
+msgid "permissions.screen"
+msgstr "Screen"
+
+msgid "permissions.view"
+msgstr "View"
+
+msgid "profile.title"
+msgstr "My profile"
+
+msgid "role.admin"
+msgstr "Admin"
+
+msgid "role.line_operator"
+msgstr "Line operator"
+
+msgid "role.maintenance_incharge"
+msgstr "Maintenance incharge"
+
+msgid "role.manager"
+msgstr "Manager"
+
+msgid "role.production_incharge"
+msgstr "Production incharge"
+
+msgid "role.store"
+msgstr "Store"
+
+msgid "role.super_admin"
+msgstr "Super Admin"
+
+msgid "role.technician"
+msgstr "Technician"
+
+msgid "role.viewer"
+msgstr "Viewer"
+
+msgid "screen.absences"
+msgstr "Absences"
+
+msgid "screen.app_incharge"
+msgstr "Phone app: group incharge"
+
+msgid "screen.app_manager"
+msgstr "Phone app: manager"
+
+msgid "screen.app_raise"
+msgstr "Phone app: raise tickets"
+
+msgid "screen.app_technician"
+msgstr "Phone app: technician"
+
+msgid "screen.groups"
+msgstr "Groups"
+
+msgid "screen.lines"
+msgstr "Lines"
+
+msgid "screen.machine_types"
+msgstr "Machine types"
+
+msgid "screen.machines"
+msgstr "Machines"
+
+msgid "screen.part_requests"
+msgstr "Part requests"
+
+msgid "screen.parts"
+msgstr "Parts register"
+
+msgid "screen.people"
+msgstr "People"
+
+msgid "screen.people_unlock"
+msgstr "Unlock and reset phone"
+
+msgid "screen.permissions"
+msgstr "Permissions"
+
+msgid "screen.places"
+msgstr "Places"
+
+msgid "screen.schedule"
+msgstr "Schedule"
+
+msgid "screen.settings"
+msgstr "Settings"
+
+msgid "screen.shifts"
+msgstr "Shifts"
+
+msgid "screen.ticket_board"
+msgstr "Ticket board"
+

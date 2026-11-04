@@ -1,0 +1,362 @@
+# Hindi translations for Avirat.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the Avirat project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Avirat VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-04 16:09+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: hi\n"
+"Language-Team: hi <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+msgid "action.continue"
+msgstr "आगे बढ़ें"
+
+msgid "action.edit"
+msgstr "बदलें"
+
+msgid "action.save"
+msgstr "सहेजें"
+
+msgid "action.search"
+msgstr "खोजें"
+
+msgid "api.error.account_blocked"
+msgstr "यह खाता अब सक्रिय नहीं है।"
+
+msgid "api.error.account_locked"
+msgstr "कई बार गलत कोशिश के कारण यह खाता लॉक हो गया है। इसे खुलवाने के लिए मैनेजर से कहें।"
+
+msgid "api.error.bad_request"
+msgstr "कुछ जानकारी छूटी है या गलत है।"
+
+msgid "api.error.device_in_use"
+msgstr "यह फ़ोन दूसरे खाते से जुड़ा है। इसे रीसेट करने के लिए मैनेजर से कहें।"
+
+msgid "api.error.device_mismatch"
+msgstr "यह खाता दूसरे फ़ोन से जुड़ा है। इसे रीसेट करने के लिए मैनेजर से कहें।"
+
+msgid "api.error.forbidden"
+msgstr "आपको इसकी अनुमति नहीं है।"
+
+msgid "api.error.invalid_credentials"
+msgstr "कर्मचारी आईडी या पासवर्ड गलत है।"
+
+msgid "api.error.invalid_language"
+msgstr "यह भाषा उपलब्ध नहीं है।"
+
+msgid "api.error.invalid_token"
+msgstr "कृपया फिर से साइन इन करें।"
+
+msgid "api.error.method_not_allowed"
+msgstr "यहाँ यह काम नहीं किया जा सकता।"
+
+msgid "api.error.no_web_access"
+msgstr "इस खाते के लिए कोई वेब स्क्रीन नहीं है। फ़ोन ऐप इस्तेमाल करें।"
+
+msgid "api.error.not_found"
+msgstr "नहीं मिला।"
+
+msgid "api.error.password_change_required"
+msgstr "पहले अपना पासवर्ड बदलें।"
+
+msgid "api.error.password_same"
+msgstr "नया पासवर्ड मौजूदा पासवर्ड से अलग होना चाहिए।"
+
+msgid "api.error.password_too_short"
+msgstr "नए पासवर्ड में कम से कम %(min)s अक्षर होने चाहिए।"
+
+msgid "api.error.server_error"
+msgstr "सर्वर पर कुछ गड़बड़ हो गई।"
+
+msgid "api.error.token_reused"
+msgstr "सुरक्षा के लिए यह फ़ोन साइन आउट कर दिया गया। कृपया फिर से साइन इन करें।"
+
+msgid "api.error.unauthorized"
+msgstr "कृपया फिर से साइन इन करें।"
+
+msgid "app.name"
+msgstr "अविरत"
+
+msgid "auth.field.confirm_password"
+msgstr "नया पासवर्ड दोबारा"
+
+msgid "auth.field.current_password"
+msgstr "मौजूदा पासवर्ड"
+
+msgid "auth.field.new_password"
+msgstr "नया पासवर्ड"
+
+msgid "auth.field.password"
+msgstr "पासवर्ड"
+
+msgid "auth.field.totp_code"
+msgstr "6 अंकों का कोड"
+
+msgid "auth.field.totp_or_recovery"
+msgstr "6 अंकों का कोड या रिकवरी कोड"
+
+msgid "auth.login.submit"
+msgstr "साइन इन करें"
+
+msgid "auth.login.title"
+msgstr "साइन इन"
+
+msgid "auth.password.changed"
+msgstr "पासवर्ड बदल दिया गया।"
+
+msgid "auth.password.confirm_differs"
+msgstr "दोनों नए पासवर्ड एक जैसे नहीं हैं।"
+
+msgid "auth.password.current_wrong"
+msgstr "मौजूदा पासवर्ड गलत है।"
+
+msgid "auth.password.rule"
+msgstr "कम से कम %(min)s अक्षर।"
+
+msgid "auth.password.title"
+msgstr "पासवर्ड बदलें"
+
+msgid "auth.recovery.help"
+msgstr "फ़ोन खो जाने पर हर कोड एक बार काम करता है। ये दोबारा नहीं दिखेंगे, इसलिए अभी प्रिंट कर लें या लिख लें।"
+
+msgid "auth.recovery.title"
+msgstr "अपने रिकवरी कोड सँभालकर रखें"
+
+msgid "auth.totp.confirm"
+msgstr "पुष्टि करें"
+
+msgid "auth.totp.enroll_help"
+msgstr "अपने फ़ोन के ऑथेंटिकेटर ऐप से यह कोड स्कैन करें, फिर उसमें दिखने वाला 6 अंकों का कोड लिखें।"
+
+msgid "auth.totp.enroll_title"
+msgstr "ऑथेंटिकेटर सेट करें"
+
+msgid "auth.totp.invalid"
+msgstr "यह कोड सही नहीं है।"
+
+msgid "auth.totp.manual_key"
+msgstr "स्कैन नहीं हो रहा? यह कुंजी लिखें:"
+
+msgid "auth.totp.qr_alt"
+msgstr "ऑथेंटिकेटर ऐप के लिए QR कोड"
+
+msgid "auth.totp.verify_help"
+msgstr "ऑथेंटिकेटर ऐप का कोड लिखें। फ़ोन पास न हो तो रिकवरी कोड इस्तेमाल करें।"
+
+msgid "auth.totp.verify_title"
+msgstr "अपना कोड लिखें"
+
+msgid "error.bad_request"
+msgstr "यह अनुरोध पूरा नहीं हो सका। वापस जाकर फिर से कोशिश करें।"
+
+msgid "error.forbidden"
+msgstr "आपको इस पेज की अनुमति नहीं है।"
+
+msgid "error.not_found"
+msgstr "पेज नहीं मिला।"
+
+msgid "error.server"
+msgstr "सर्वर पर कुछ गड़बड़ हो गई।"
+
+msgid "home.empty"
+msgstr "आपके लिए अभी कोई स्क्रीन नहीं खुली है।"
+
+msgid "home.title"
+msgstr "होम"
+
+msgid "language.bn"
+msgstr "বাংলা"
+
+msgid "language.en"
+msgstr "English"
+
+msgid "language.hi"
+msgstr "हिन्दी"
+
+msgid "nav.home"
+msgstr "होम"
+
+msgid "nav.logout"
+msgstr "साइन आउट"
+
+msgid "people.bound"
+msgstr "जुड़ा है"
+
+msgid "people.device_reset"
+msgstr "फ़ोन का जुड़ाव रीसेट हो गया। अगला फ़ोन साइन इन करते ही जुड़ जाएगा।"
+
+msgid "people.error.duplicate"
+msgstr "यह कर्मचारी आईडी पहले से मौजूद है।"
+
+msgid "people.error.required"
+msgstr "कृपया सभी ज़रूरी जानकारी सही भरें।"
+
+msgid "people.error.role"
+msgstr "आप यह भूमिका नहीं दे सकते।"
+
+msgid "people.field.employee_code"
+msgstr "कर्मचारी आईडी"
+
+msgid "people.field.language"
+msgstr "भाषा"
+
+msgid "people.field.name"
+msgstr "नाम"
+
+msgid "people.field.phone"
+msgstr "फ़ोन नंबर"
+
+msgid "people.field.phone_bound"
+msgstr "जुड़ा हुआ फ़ोन"
+
+msgid "people.field.role"
+msgstr "भूमिका"
+
+msgid "people.field.status"
+msgstr "स्थिति"
+
+msgid "people.locked"
+msgstr "लॉक"
+
+msgid "people.new"
+msgstr "नया व्यक्ति जोड़ें"
+
+msgid "people.otp.help"
+msgstr "इसे अभी उस व्यक्ति को दें। यह कहीं सहेजा नहीं जाता और दोबारा नहीं दिखेगा। पहले साइन इन पर इसे बदलना होगा।"
+
+msgid "people.otp.title"
+msgstr "एक बार का पासवर्ड"
+
+msgid "people.reset_device"
+msgstr "फ़ोन रीसेट करें"
+
+msgid "people.reset_password"
+msgstr "पासवर्ड रीसेट करें"
+
+msgid "people.reset_to_template"
+msgstr "भूमिका बदलने पर अनुमतियाँ नई भूमिका के टेम्पलेट पर रीसेट करें"
+
+msgid "people.saved"
+msgstr "सहेज लिया गया।"
+
+msgid "people.status.active"
+msgstr "सक्रिय"
+
+msgid "people.status.blocked"
+msgstr "ब्लॉक"
+
+msgid "people.status.left"
+msgstr "कंपनी छोड़ दी"
+
+msgid "people.unlock"
+msgstr "अनलॉक करें"
+
+msgid "people.unlocked"
+msgstr "खाता अनलॉक हो गया।"
+
+msgid "permissions.act"
+msgstr "बदलें"
+
+msgid "permissions.screen"
+msgstr "स्क्रीन"
+
+msgid "permissions.view"
+msgstr "देखें"
+
+msgid "profile.title"
+msgstr "मेरी प्रोफ़ाइल"
+
+msgid "role.admin"
+msgstr "एडमिन"
+
+msgid "role.line_operator"
+msgstr "लाइन ऑपरेटर"
+
+msgid "role.maintenance_incharge"
+msgstr "मेंटेनेंस इंचार्ज"
+
+msgid "role.manager"
+msgstr "मैनेजर"
+
+msgid "role.production_incharge"
+msgstr "प्रोडक्शन इंचार्ज"
+
+msgid "role.store"
+msgstr "स्टोर"
+
+msgid "role.super_admin"
+msgstr "सुपर एडमिन"
+
+msgid "role.technician"
+msgstr "तकनीशियन"
+
+msgid "role.viewer"
+msgstr "दर्शक"
+
+msgid "screen.absences"
+msgstr "अनुपस्थिति"
+
+msgid "screen.app_incharge"
+msgstr "फ़ोन ऐप: ग्रुप इंचार्ज"
+
+msgid "screen.app_manager"
+msgstr "फ़ोन ऐप: मैनेजर"
+
+msgid "screen.app_raise"
+msgstr "फ़ोन ऐप: टिकट बनाना"
+
+msgid "screen.app_technician"
+msgstr "फ़ोन ऐप: तकनीशियन"
+
+msgid "screen.groups"
+msgstr "समूह"
+
+msgid "screen.lines"
+msgstr "लाइनें"
+
+msgid "screen.machine_types"
+msgstr "मशीन के प्रकार"
+
+msgid "screen.machines"
+msgstr "मशीनें"
+
+msgid "screen.part_requests"
+msgstr "पार्ट्स के अनुरोध"
+
+msgid "screen.parts"
+msgstr "पार्ट्स रजिस्टर"
+
+msgid "screen.people"
+msgstr "लोग"
+
+msgid "screen.people_unlock"
+msgstr "अनलॉक और फ़ोन रीसेट"
+
+msgid "screen.permissions"
+msgstr "अनुमतियाँ"
+
+msgid "screen.places"
+msgstr "स्थान"
+
+msgid "screen.schedule"
+msgstr "शेड्यूल"
+
+msgid "screen.settings"
+msgstr "सेटिंग्स"
+
+msgid "screen.shifts"
+msgstr "शिफ़्ट"
+
+msgid "screen.ticket_board"
+msgstr "टिकट बोर्ड"
+

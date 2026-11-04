@@ -43,3 +43,7 @@ Thumbs.db
 
 # Compiled translations are built at setup
 *.mo
+backend/app/translations/messages.pot
+
+# Local dev Caddy storage
+backend/.caddy-dev/
