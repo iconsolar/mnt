@@ -26,3 +26,5 @@ backend/
 ```
 
 Stage 7 adds `store/` and `imports/`; stage 8 adds `kpi/`.
+
+Every route must carry a rule (`@requires` or `@signed_in`, in `app/people/access.py`) or be named in `PUBLIC_ENDPOINTS` there. A route with neither is refused, and a test fails on it. Commands are in `../CLAUDE.md`.

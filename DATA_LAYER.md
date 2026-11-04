@@ -17,15 +17,15 @@ MySQL 8, InnoDB, `utf8mb4` / `utf8mb4_0900_ai_ci`. All schema changes go through
 
 | Table | Key columns | Notes |
 |---|---|---|
-| `users` | id, employee_code (unique), name, phone, role_template_id, language (`en`/`hi`/`bn`), status (`active`/`blocked`/`left`), password_hash, must_change_password, failed_logins, locked_at, created_at | One row per person, one role per person (D-50). Every line operator has their own (D-11). |
+| `users` | id, employee_code (unique), name, phone, role_template_id, language (`en`/`hi`/`bn`), status (`active`/`blocked`/`left`), password_hash, must_change_password, failed_logins, locked_at, session_epoch, created_at | One row per person, one role per person (D-50). `session_epoch` goes up on a password change or block, so existing web sessions stop working. Every line operator has their own (D-11). |
 | `role_templates` | id, code, name | `line_operator`, `production_incharge`, `technician`, `maintenance_incharge`, `manager`, `store`, `viewer`, `admin`, `super_admin`. The role says who someone is in the ticket rules; who is group incharge on a shift comes from the schedule. Template permissions are defined in code and copied when the person is created. |
 | `screens` | code (PK), area, name_key | Registry of screens and actions; seeded from code. |
 | `user_screen_permissions` | user_id, screen_code, can_view, can_act | The real permission, per person (ICON TRACE pattern). |
-| `devices` | id, user_id, install_id (unique), model, os_version, app_version, fcm_token, bound_at, unbound_at, unbound_by, last_seen_at | One active device per user (D-12). |
+| `devices` | id, user_id, install_id, model, os_version, app_version, fcm_token, bound_at, unbound_at, unbound_by, last_seen_at, active_user_id, active_install_id | One active device per user (D-12). Unbound rows stay as history. The two `active_` columns are generated and unique, so the database itself allows one bound phone per person and one person per bound phone. |
 | `access_tokens` | id, user_id, device_id, token_hash, issued_at, expires_at, revoked_at | Hash only; 15 min (D-53). |
-| `refresh_tokens` | id, user_id, device_id, token_hash, issued_at, expires_at, replaced_at, grace_used_at, revoked_at | Hash only; 90 days, rotated on refresh. The token just replaced works once within 2 min; reuse after that revokes all tokens of that device (D-53). |
-| `login_attempts` | id, employee_code, device_install_id, ip, at, success | Lockout after 5 failures in a row. |
-| `totp_secrets` | user_id, secret_encrypted, enrolled_at | Super Admin, Admin and Manager (D-52). |
+| `refresh_tokens` | id, user_id, device_id, token_hash, issued_at, expires_at, replaced_at, replaced_by_id, grace_used_at, revoked_at | Hash only; 90 days, rotated on refresh. The token just replaced works once within 2 min; reuse after that revokes all tokens of that device (D-53). |
+| `login_attempts` | id, employee_code, device_install_id, ip, at, success, reason | Lockout after 5 failures in a row (the count itself is `users.failed_logins`). `reason` says why a login was refused. |
+| `totp_secrets` | user_id, secret_encrypted, enrolled_at, last_used_step | Super Admin, Admin and Manager (D-52). `last_used_step` stops a code being used twice. |
 | `totp_recovery_codes` | id, user_id, code_hash, created_at, used_at | One-time backup codes, hash only (D-52). |
 | `audit_log` | id, actor_user_id, action, entity, entity_id, before_json, after_json, at | Every admin change. |
 

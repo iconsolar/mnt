@@ -14,15 +14,15 @@ Legend: `[ ]` open · `[x]` done · `(O-n)` blocked by an open question in `DECI
 ## Stage 2 — Backend core
 Done when: an admin can sign in on the web, create people, groups, shifts, a schedule and machines, print QR codes, and a phone-style API client can log in, bind a device and fetch "my profile".
 
-- [ ] Flask app factory, config from `.env`, Waitress entry point, structured logging, health check `/api/v1/health`
-- [ ] MySQL + SQLAlchemy 2 + Alembic; first migration; test database for pytest
-- [ ] Injectable clock; IST/UTC helpers; shift and work-date helpers (night shift belongs to its start date)
-- [ ] i18n: Flask-Babel with en, hi, bn catalogues; language per user
-- [ ] Users, role templates, screen registry, per-screen permissions (ICON TRACE pattern); permission check on every route
-- [ ] Web login (session + CSRF); password + TOTP with recovery codes for Super Admin, Admin and Manager (D-52)
-- [ ] Mobile login: employee ID + password, first-login password change, device binding, access + refresh tokens (D-53), lockout after 5 failures (D-54), manager unlock and device reset
+- [x] Flask app factory, config from `.env`, Waitress entry point, structured logging, health check `/api/v1/health`
+- [x] MySQL + SQLAlchemy 2 + Alembic; first migration; test database for pytest
+- [x] Injectable clock; IST/UTC helpers; shift and work-date helpers (night shift belongs to its start date)
+- [x] i18n: Flask-Babel with en, hi, bn catalogues; language per user
+- [x] Users, role templates, screen registry, per-screen permissions (ICON TRACE pattern); permission check on every route
+- [x] Web login (session + CSRF); password + TOTP with recovery codes for Super Admin, Admin and Manager (D-52)
+- [x] Mobile login: employee ID + password, first-login password change, device binding, access + refresh tokens (D-53), lockout after 5 failures (D-54), manager unlock and device reset
 - [ ] **Mid-stage checkpoint**: push the branch and report after web login and the mobile login API; the rest of stage 2 after Mukesh's OK
-- [ ] Audit log for every admin change
+- [x] Audit log for every admin change (later steps call it for theirs)
 - [ ] Groups and members; shifts (O-3); schedules with valid-from; absences
 - [ ] On-duty query (group + shift + date, minus absences) with tests
 - [ ] Lines, machine types (factor history), machines with parent (stringer → lanes) and feeds (bussing → stringer), places
@@ -30,8 +30,9 @@ Done when: an admin can sign in on the web, create people, groups, shifts, a sch
 - [ ] Bulk imports from the templates: people, machines, places, shifts, schedule (validation report, idempotent)
 - [ ] Parts register import from the 1 Nov Excel, read-only list with search (`imports.md` §2)
 - [ ] Settings table with timer defaults (10 min, 5 min, 2 h, 4 h, 4 h)
-- [ ] Web screens: people, permissions, groups, shifts, schedule upload, absences, lines, machine types, machines, places, settings, parts list
-- [ ] Worker skeleton: a process that wakes every 30 s and logs; timers come in stage 3 (discovered in the stage 2 review)
+- [ ] Web screens: people and permissions done; groups, shifts, schedule upload, absences, lines, machine types, machines, places, settings, parts list
+- [x] Worker skeleton: a process that wakes every 30 s and logs; timers come in stage 3 (discovered in the stage 2 review)
+- [ ] Native speakers check the Hindi and Bangla web and API strings (written by Claude; discovered in step 4)
 - [ ] **Checkpoint with Mukesh**
 
 ## Stage 3 — Ticket engine

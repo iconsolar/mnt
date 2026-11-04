@@ -30,15 +30,25 @@ These rules apply to Claude Code and to any other agent working in this repo (se
 - No reminders to technicians while work is in progress, no hold state, no waiting tag (decided against).
 
 ## Commands
-Fill these in when stage 2 and stage 4 create them.
+PowerShell, from `backend\`, with the virtual environment active. Stage 4 fills in the mobile ones.
+
+This PC also runs ICON TRACE's Caddy (ports 80, 443, 2019, proxying to 8080). Avirat's dev setup uses 8090 and 8443 to stay clear of it. **Never stop a process by name here**, only by its own handle or ID.
 
 ```
 # backend
-(setup)        to be added in stage 2
-(run web)      to be added in stage 2
-(run worker)   to be added in stage 2
-(migrate)      to be added in stage 2
-(tests)        to be added in stage 2
+(setup)        py -3.14 -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt -r requirements-dev.txt; Copy-Item ..\.env.example ..\.env; pybabel compile -d app\translations
+(run web)      python wsgi.py                 # Waitress on 127.0.0.1:AVIRAT_PORT
+(run worker)   python worker.py
+(migrate)      alembic upgrade head           # new one: alembic revision --autogenerate -m "what changed"
+(tests)        pytest                         # needs MySQL and AVIRAT_TEST_DATABASE_URL
+(dev https)    caddy run --config Caddyfile.dev --adapter caddyfile    # https://avirat.localhost:8443 -> Waitress
+(seed)         flask --app app seed           # role templates and screens; groups and timer defaults join in steps 9-10
+(first admin)  flask --app app users create-superadmin <employee_code>
+(unlock)       flask --app app users unlock <employee_code>       # the only way for a Super Admin
+(reset TOTP)   flask --app app users reset-totp <employee_code>
+(import)       flask --app app import people ..\data\people.csv   # step 13; also machines, places, shifts, schedule. data\ is gitignored; docs\templates holds EXAMPLE rows only
+(parts)        flask --app app import parts <path to the 1 Nov .xlsm>    # step 14
+(translations) pybabel extract -F babel.cfg -o app\translations\messages.pot . ; pybabel update -i app\translations\messages.pot -d app\translations ; pybabel compile -d app\translations
 
 # mobile
 (run)          to be added in stage 4

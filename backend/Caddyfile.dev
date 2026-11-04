@@ -1,6 +1,19 @@
-# Development HTTPS: https://avirat.localhost -> Waitress on 127.0.0.1:8080.
-# Uses Caddy's local CA. Production uses the plant's internal CA (stage 6).
+# Development HTTPS: https://avirat.localhost:8443 -> Waitress on 127.0.0.1:8090.
+# Run it from backend/. Production uses the plant's internal CA on port 443 (stage 6).
+#
+# This PC also runs ICON TRACE's Caddy (ports 80, 443, 2019; it proxies to 8080), so
+# this one keeps its own ports and storage, has no admin endpoint and saves no config.
+# To make your browser trust it, import .caddy-dev/pki/authorities/local/root.crt.
+{
+	admin off
+	persist_config off
+	skip_install_trust
+	http_port 8081
+	https_port 8443
+	storage file_system .caddy-dev
+}
+
 avirat.localhost {
 	tls internal
-	reverse_proxy 127.0.0.1:8080
+	reverse_proxy 127.0.0.1:8090
 }
