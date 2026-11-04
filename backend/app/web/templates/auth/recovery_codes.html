@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('auth.recovery.title') }}</h1>
+<p>{{ _('auth.recovery.help') }}</p>
+<ul class="codes">
+  {% for code in codes %}<li><code>{{ code }}</code></li>{% endfor %}
+</ul>
+<p><a class="button" href="{{ url_for('web.home') }}">{{ _('action.continue') }}</a></p>
+{% endblock %}

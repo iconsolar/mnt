@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('profile.title') }}</h1>
+<dl class="facts">
+  <dt>{{ _('people.field.employee_code') }}</dt><dd>{{ current_user.employee_code }}</dd>
+  <dt>{{ _('people.field.name') }}</dt><dd>{{ current_user.name }}</dd>
+  <dt>{{ _('people.field.role') }}</dt><dd>{{ _(current_user.role.name) }}</dd>
+</dl>
+<form method="post" class="form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="language">{{ _('people.field.language') }}</label>
+  <select id="language" name="language">
+    {% for code in languages %}
+    <option value="{{ code }}" {% if code == current_user.language %}selected{% endif %}>{{ _('language.' ~ code) }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">{{ _('action.save') }}</button>
+</form>
+<p><a href="{{ url_for('auth.change_password') }}">{{ _('auth.password.title') }}</a></p>
+{% endblock %}

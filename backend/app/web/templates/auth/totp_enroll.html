@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('auth.totp.enroll_title') }}</h1>
+<p>{{ _('auth.totp.enroll_help') }}</p>
+<p><img class="qr" src="{{ qr }}" alt="{{ _('auth.totp.qr_alt') }}"></p>
+<p>{{ _('auth.totp.manual_key') }} <code>{{ secret }}</code></p>
+<form method="post" class="form" autocomplete="off">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="code">{{ _('auth.field.totp_code') }}</label>
+  <input id="code" name="code" inputmode="numeric" required autofocus>
+  <button type="submit">{{ _('auth.totp.confirm') }}</button>
+</form>
+{% endblock %}

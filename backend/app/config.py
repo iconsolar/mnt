@@ -5,6 +5,7 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from cryptography.fernet import Fernet
 from dotenv import load_dotenv
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -36,6 +37,13 @@ class Settings:
         totp_key = _require("AVIRAT_TOTP_KEY")
         if env == "production" and "change-me" in (secret_key, totp_key):
             raise RuntimeError("Replace the change-me secrets in .env before running in production.")
+        try:
+            Fernet(totp_key.encode())
+        except ValueError as exc:
+            raise RuntimeError(
+                "AVIRAT_TOTP_KEY must be a Fernet key. Make one with: "
+                'python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"'
+            ) from exc
         return cls(
             env=env,
             secret_key=secret_key,

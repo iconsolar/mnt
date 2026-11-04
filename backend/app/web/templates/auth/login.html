@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('auth.login.title') }}</h1>
+<form method="post" class="form" autocomplete="off">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="employee_code">{{ _('people.field.employee_code') }}</label>
+  <input id="employee_code" name="employee_code" value="{{ employee_code or '' }}" required autofocus>
+  <label for="password">{{ _('auth.field.password') }}</label>
+  <input id="password" name="password" type="password" required>
+  <button type="submit">{{ _('auth.login.submit') }}</button>
+</form>
+<form method="post" action="{{ url_for('web.set_language') }}" class="inline">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button class="link" name="language" value="en">English</button>
+  <button class="link" name="language" value="hi">हिन्दी</button>
+  <button class="link" name="language" value="bn">বাংলা</button>
+</form>
+{% endblock %}

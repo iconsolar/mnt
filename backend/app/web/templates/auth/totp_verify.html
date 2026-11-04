@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('auth.totp.verify_title') }}</h1>
+<p>{{ _('auth.totp.verify_help') }}</p>
+<form method="post" class="form" autocomplete="off">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label for="code">{{ _('auth.field.totp_or_recovery') }}</label>
+  <input id="code" name="code" required autofocus>
+  <button type="submit">{{ _('auth.login.submit') }}</button>
+</form>
+{% endblock %}

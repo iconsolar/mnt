@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('home.title') }}</h1>
+{% if pages %}
+<ul class="tiles">
+  {% for page in pages %}<li><a href="{{ page.url }}">{{ _(page.name_key) }}</a></li>{% endfor %}
+</ul>
+{% else %}
+<p>{{ _('home.empty') }}</p>
+{% endif %}
+{% endblock %}
