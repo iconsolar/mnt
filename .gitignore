@@ -40,3 +40,6 @@ data/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Compiled translations are built at setup
+*.mo

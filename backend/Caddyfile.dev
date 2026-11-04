@@ -1,0 +1,6 @@
+# Development HTTPS: https://avirat.localhost -> Waitress on 127.0.0.1:8080.
+# Uses Caddy's local CA. Production uses the plant's internal CA (stage 6).
+avirat.localhost {
+	tls internal
+	reverse_proxy 127.0.0.1:8080
+}

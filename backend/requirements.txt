@@ -1,0 +1,16 @@
+# Runtime dependencies (Python 3.14). Pinned so the server gets what was tested.
+Flask==3.1.*
+SQLAlchemy==2.0.*
+alembic==1.*
+PyMySQL==1.1.*
+cryptography>=44
+argon2-cffi==25.*
+pyotp==2.9.*
+Flask-Babel==4.*
+Flask-WTF==1.2.*
+Flask-Login==0.6.*
+python-dotenv==1.*
+waitress==3.*
+segno==1.6.*
+openpyxl==3.1.*
+tzdata>=2025.1
