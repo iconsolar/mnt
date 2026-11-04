@@ -2,6 +2,8 @@
 
 What comes in from Excel, how it is mapped, and what gets cleaned. The source files stay outside the repo (company data). Every import is a command that can run twice without creating duplicates, and prints a report of what it skipped and why.
 
+**Re-running an import.** Rows match on their natural key; changed fields are updated and reported. Rows missing from a file are reported, never deactivated; deactivate only through a status column or the screen. Re-imports never touch passwords, device bindings or permissions. On the web, an upload shows a preview, then applies.
+
 ## 1. Breakdown history (stage 5)
 
 **File**: `Maintenance_Breakdown_KPI_Summary_01_October_2026.xlsm`, sheet **Breakdown Record** (table `BreakdownTable`), header row 4, data rows 5–308: **304 breakdowns, 1 Aug – 29 Sep 2026** (Aug 150 rows / 14,403 min; Sep 154 / 11,243 min).
@@ -21,7 +23,7 @@ These rows become `history_breakdowns`: read-only, shown in machine and problem 
 | J–Q (category, component, action, status, priority, person, slip, remarks) | extra_json | Filled in 1 row only |
 | R–T | — | Helper formulas, not imported |
 
-**Monthly KPIs**: sheet **Saved Data**, B2:F14 (Month, MTTR, MTBF, DWT %, TDH %). Aug and Sep 2026 are filled. They become `kpi_month_snapshots` with `source = excel`, exactly as saved. `kpi.md` §7 is the test that recomputes them from the rows.
+**Monthly KPIs**: sheet **Saved Data**, B2:F14 (Month, MTTR, MTBF, DWT %, TDH %). Aug and Sep 2026 are filled. They become `kpi_month_snapshots` (created in stage 5) with `source = excel`, exactly as saved. `kpi.md` §7 is the test that recomputes them from the rows.
 
 Stringer rows by lane, from the descriptions: 44 A only, 61 B only, 53 both, 8 not stated (evidence for O-6).
 
@@ -32,10 +34,10 @@ Stringer rows by lane, from the descriptions: 44 A only, 61 B only, 53 both, 8 n
 | Excel column | Into | Notes |
 |---|---|---|
 | B Icon Code | `parts.icon_code` | 20004–21152, unique: the key |
-| C Machine/Asset Association | machine_type_id or general_kind | Mapped through §3; "GENERAL SPARE" and "PNEUMATIC SPARE" become general_kind |
+| C Machine/Asset Association | machine_association_raw, machine_type_id or general_kind | The Excel's text is always kept in machine_association_raw. Only "sure" pairs in §3 set machine_type_id; "GENERAL SPARE" and "PNEUMATIC SPARE" become general_kind |
 | D Part Name | name | Trim (571 names have stray spaces) |
 | E Part ID | spec | Text; `NA` → null; repeats across parts (28 rows), never a key; 187 blank |
-| F Category | category | Six values (Mechanical / Electrical / "Pnumatic Cyl." × Consumable / Critical). Spell as Pneumatic. 2 blank: 20122, 20277 |
+| F Category | category_type, category_use | Six values (Mechanical / Electrical / "Pnumatic Cyl." × Consumable / Critical), split into two columns. Spell as Pneumatic. 2 blank: 20122, 20277 |
 | G OEM Code | oem_code | Number → text; 395 filled |
 | H Location / Bin Number | bin | Trim; 252 bins; 4 blank |
 | I Unit | unit | `NOS.`→Nos, `Sets.`→Sets, `Kgs.`→Kgs, `Litres.`→Litres, `Meters.`→Meters, `Rolls.`→Rolls, `Packets.`→Packets |
@@ -52,7 +54,7 @@ Stringer rows by lane, from the descriptions: 44 A only, 61 B only, 53 both, 8 n
 
 **Cleaning**
 - Trim every text field.
-- Drag-fill machine names (Excel incremented them): "91 DEGREE VISUAL" and "92 DEGREE VISUAL" → "90 DEGREE VISUAL"; "181 DEGREE" and "182 DEGREE" → "180 DEGREE". Confirm with Mukesh before applying.
+- Drag-fill machine names (Excel incremented them): "91 DEGREE VISUAL" and "92 DEGREE VISUAL" → "90 DEGREE VISUAL"; "181 DEGREE" and "182 DEGREE" → "180 DEGREE". Confirmed by Mukesh, 4 Nov.
 - **Likely duplicates** (same machine, name and Part ID). List them for the store; never merge automatically:
 
 | Icon Codes | Machine | Part | Stock | Bin |
@@ -73,7 +75,7 @@ The April–31.8 inventory file (`Spare_Parts_Inventory__April_-_31.8.xlsm`) has
 
 ## 3. Machine names
 
-The machine master (from `docs/templates/machines.csv`, open question O-4) holds the canonical names. Both Excel files map onto it. "Sure" pairs can be applied; "confirm" pairs need Mukesh.
+The machine master (from `data/machines.csv`, shaped like `docs/templates/machines.csv`, open question O-4) holds the canonical names. Both Excel files map onto it. Machine types are seeded from this table with the factors in `kpi.md` §5. "Sure" pairs are applied; "confirm" pairs need Mukesh and stay unmapped until then, with the text kept in `parts.machine_association_raw`.
 
 | KPI Excel (machine type) | Inventory Excel (association) | |
 |---|---|---|
@@ -101,15 +103,15 @@ The machine master (from `docs/templates/machines.csv`, open question O-4) holds
 
 ## 4. Data templates
 
-`docs/templates/` holds CSV templates for the data Mukesh provides. Example rows start with `EXAMPLE` and are skipped by the import.
+`docs/templates/` holds CSV templates for the data Mukesh provides. Example rows start with `EXAMPLE` and are skipped by the import. The real files go in `data/` (gitignored); imports read from there, never from `docs/templates/`.
 
 | File | Columns | Notes |
 |---|---|---|
 | `machines.csv` | code, name, machine_type, line, number, lane, parent_code, feeds_code, default_group | A stringer row, then one row per lane (A, B) with `parent_code` = the stringer. A bussing row has `feeds_code` = its stringer. |
 | `people.csv` | employee_code, name, phone, role_template, groups, language | `groups` separated by `;` for technicians. `language` = en / hi / bn. |
 | `shifts.csv` | shift, starts, ends | 24-hour `HH:MM`. |
-| `schedule.csv` | valid_from, group, shift, employee_code, duty | `duty` = incharge or technician; one incharge per group and shift. |
-| `places.csv` | code, name | Places for jobs without a machine. |
+| `schedule.csv` | valid_from, group, shift, employee_code, duty | `duty` = incharge or technician; one incharge per group and shift. The same group and valid-from replaces that schedule's entries; a new date makes a new schedule. |
+| `places.csv` | code, name | Places for jobs without a machine. `name` fills `name_en`. |
 
 ## 5. Excel habits not to repeat
 

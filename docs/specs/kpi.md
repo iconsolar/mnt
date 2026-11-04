@@ -20,6 +20,8 @@ How the monthly KPIs are calculated from tickets and the store. Diagrams: `docs/
 
 From the declared stop time to the **last** claim resolved, including every claim-to-reopen gap (D-39). Vendor and machine-release waits count (D-33). The observation after the final claim does not count.
 
+A **machine's** downtime minutes are the union of its stopped tickets' intervals, so overlapping tickets (a second fault found) don't count the same minutes twice. Each ticket still counts as a breakdown (D-63).
+
 ## 4. Split by day, shift and month (default)
 
 - Each minute of downtime goes to the day, shift and month in which it happened (IST). A stoppage from 31 Aug 22:00 to 1 Sep 03:00 puts 120 minutes in August and 180 in September.
@@ -47,7 +49,7 @@ Per month, per machine type and for all machines.
 | MTBF | (working minutes − weighted downtime) ÷ breakdowns. For all machines: working minutes × number of machine types | 6,303.80 min |
 | **Line downtime %** (headline, D-45) | Total weighted downtime ÷ working minutes × 100. This is the Excel's TDH % | 16.02 % |
 | Line availability | 100 − line downtime % (default) | 83.98 % |
-| DWT % | Average over machine types of (weighted downtime ÷ working minutes × 100). Bands: < 0.59 good, 0.60–0.90 normal, ≥ 0.91 bad | 0.6406 % |
+| DWT % | Average over machine types of (weighted downtime ÷ working minutes × 100). Bands compare the value as shown, to 2 decimals: ≤ 0.59 good, 0.60–0.90 normal, ≥ 0.91 bad; both thresholds are settings (D-62) | 0.6406 % |
 
 With the real month, August has 31 × 1,380 = **42,780** working minutes, so August's line downtime becomes 6,630 ÷ 42,780 = **15.5 %**.
 
@@ -70,7 +72,7 @@ This "Excel mode" exists only for the test. The app's reports use the real month
 
 | KPI | Formula | Reference |
 |---|---|---|
-| Consumption ₹ | Issues × price at the time of issue, minus approved returns in the month they are approved | Per month, machine and category |
+| Consumption ₹ | Issues × price at the time of issue, minus returns in the month the store confirms them (D-61) | Per month, machine and category |
 | Monthly budget | Annual budget ÷ 12 | FY 2026-27: ₹10 Cr → ₹83.3 lakh a month. FY 2027-28: ₹8 Cr. FY 2028-29: ₹7 Cr |
 | Budget status | Consumption ÷ monthly budget | On budget ≤ 100 % · Watch ≤ 105 % · Over budget above |
 | ₹ per watt | Consumption ₹ ÷ (produced kW × 1,000) | Target ₹0.057/W (₹10 Cr ÷ 8,000 × 350 × 0.625 kW). April: ₹48.3 lakh ÷ 65,904 kW = ₹0.073/W |
@@ -82,7 +84,7 @@ This "Excel mode" exists only for the test. The app's reports use the real month
 
 - At month end the app freezes the month's KPIs into `kpi_month_snapshots`. This replaces the Excel's UpdateHistory macro.
 - A back-fill entry in a closed month asks the manager to re-run that month; the re-run is logged.
-- Aug and Sep 2026 come in from the Excel as snapshots marked `source = excel`.
+- There is one table (D-64). It is created in stage 5, when Aug and Sep 2026 come in from the Excel as snapshots marked `source = excel`; the app's own months are marked `source = app`.
 
 ## 10. Reports
 

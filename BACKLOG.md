@@ -19,8 +19,9 @@ Done when: an admin can sign in on the web, create people, groups, shifts, a sch
 - [ ] Injectable clock; IST/UTC helpers; shift and work-date helpers (night shift belongs to its start date)
 - [ ] i18n: Flask-Babel with en, hi, bn catalogues; language per user
 - [ ] Users, role templates, screen registry, per-screen permissions (ICON TRACE pattern); permission check on every route
-- [ ] Web login (session + CSRF); TOTP for Admin and Super Admin
-- [ ] Mobile login: employee ID + password, first-login password change, device binding, access + refresh tokens, lockout after 5 failures, manager unlock and device reset
+- [ ] Web login (session + CSRF); password + TOTP with recovery codes for Super Admin, Admin and Manager (D-52)
+- [ ] Mobile login: employee ID + password, first-login password change, device binding, access + refresh tokens (D-53), lockout after 5 failures (D-54), manager unlock and device reset
+- [ ] **Mid-stage checkpoint**: push the branch and report after web login and the mobile login API; the rest of stage 2 after Mukesh's OK
 - [ ] Audit log for every admin change
 - [ ] Groups and members; shifts (O-3); schedules with valid-from; absences
 - [ ] On-duty query (group + shift + date, minus absences) with tests
@@ -30,6 +31,7 @@ Done when: an admin can sign in on the web, create people, groups, shifts, a sch
 - [ ] Parts register import from the 1 Nov Excel, read-only list with search (`imports.md` §2)
 - [ ] Settings table with timer defaults (10 min, 5 min, 2 h, 4 h, 4 h)
 - [ ] Web screens: people, permissions, groups, shifts, schedule upload, absences, lines, machine types, machines, places, settings, parts list
+- [ ] Worker skeleton: a process that wakes every 30 s and logs; timers come in stage 3 (discovered in the stage 2 review)
 - [ ] **Checkpoint with Mukesh**
 
 ## Stage 3 — Ticket engine
@@ -46,14 +48,16 @@ Done when: every transition in `tickets.md` §3 works through the API, every tim
 - [ ] Now stopped; make it a breakdown; correct the machine; second fault as a linked ticket; notes
 - [ ] Claim (lead only, cause required, cause suggestions per machine, temporary-fix follow-up)
 - [ ] Observation, confirm window, confirm (raiser, handover person, any production incharge), auto close
-- [ ] Reopen with reason; ladder (lead → review → manager decision); "different problem" → new linked ticket
-- [ ] Cancel and merge
-- [ ] Jobs: target date, overdue alerts, no observation
+- [ ] Reopen with reason; ladder (lead → review → manager decision); "different problem": original stays claimed, new ticket with its parent and a stop time no earlier than the claim (D-58)
+- [ ] Manager assigns an incharge: re-route, assign timer restarts (D-59)
+- [ ] Cancel and merge; close as not needed (D-57)
+- [ ] Jobs: target date, overdue alerts, no assign, accept or stopped-4h timers, no observation, auto close still applies (D-60)
 - [ ] Worker: timers with `FOR UPDATE SKIP LOCKED` (assign 10 min, accept 5 min, observation end 2 h, auto close 4 h, stopped 4 h, job overdue)
 - [ ] Notifications: outbox, per-language rendering, alert matrix (`tickets.md` §12), in-app list API
 - [ ] Push sender: FCM HTTP v1 behind an interface (O-1); a log-only sender for development
 - [ ] Downtime per ticket (derived) with tests for reopen gaps and running-fault stops
 - [ ] API: `/api/v1/` endpoints for every phone screen in `tickets.md` §17
+- [ ] `GET /api/v1/app/version` and the minimum and latest version settings
 - [ ] Tests for every transition, every timer and every alert
 - [ ] **Checkpoint with Mukesh**
 
@@ -78,8 +82,8 @@ Done when: on a real phone on the plant Wi-Fi, one operator, one incharge and on
 - [ ] Ticket board (filters: state, group, machine, kind, date) and ticket detail with the event timeline
 - [ ] Store: part requests list and issue
 - [ ] Back-fill form for past breakdowns (late entries)
-- [ ] Import the Excel breakdown history (304 rows) and the Aug–Sep KPI values (`imports.md` §1)
-- [ ] APK download page and app-version settings
+- [ ] Create `kpi_month_snapshots`; import the Excel breakdown history (304 rows) and the Aug–Sep KPI values with `source = excel` (`imports.md` §1, D-64)
+- [ ] APK download page (on the public routes list)
 - [ ] **Checkpoint with Mukesh**
 
 ## Stage 6 — LAN pilot in production
@@ -89,13 +93,14 @@ Done when: on a real phone on the plant Wi-Fi, one operator, one incharge and on
 - [ ] Wi-Fi coverage check near every machine
 - [ ] Nightly MySQL backup copied to the plant NAS; restore tested once
 - [ ] Release keystore created, backed up offline, never in git
-- [ ] Data loaded: people, groups, shifts, schedule, machines and lanes, places; QR labels printed and fixed on machines
+- [ ] Data loaded: people, groups, shifts, schedule, machines and lanes (O-4), places; QR labels printed for lanes and fixed on machines
 - [ ] Training (raisers, incharges, technicians, manager, store) in their language
 - [ ] Go-live checklist and rollback plan (the Excel keeps running in parallel for the first weeks)
 - [ ] **Checkpoint with Mukesh and the DGM**
 
 ## Stage 7 — Maintenance store (`docs/specs/inventory.md`)
-- [ ] Stock movements (append-only), receipts, issues from part requests, held returns and the manager's daily approval list, stock counts and adjustments
+- [ ] Stock movements (append-only), receipts, issues from part requests, stock counts and adjustments
+- [ ] Returns (D-61): return request on the ticket, the manager's daily list, then the store's "returns to receive"; the stock movement is written at the store's confirmation; approved but never handed in stays on the store's list with its age
 - [ ] Average price (O-8), currency rates, reorder list
 - [ ] Go-live: clean the register, likely duplicates checked by the store, Excel issues since 1 Nov, opening stock, photos
 - [ ] Store screens on the web; parts screens in the app use the real stock
@@ -104,10 +109,10 @@ Done when: on a real phone on the plant Wi-Fi, one operator, one incharge and on
 ## Stage 8 — KPI reports (`docs/specs/kpi.md`)
 - [ ] Calendar (planned minutes per day, holidays, planned stops)
 - [ ] Downtime split by day, shift and month; breakdown counted on its start day
-- [ ] KPI calculations; "Excel mode" acceptance test against Aug–Sep (`kpi.md` §7)
+- [ ] KPI calculations, including machine downtime as a union of intervals (D-63) and DWT bands as settings (D-62); "Excel mode" acceptance test against Aug–Sep (`kpi.md` §7)
 - [ ] Factors: lane (O-6), bussing (O-7)
 - [ ] Spares cost KPIs, budget status, ₹/W; produced kW entry
-- [ ] Month-end snapshot and re-run
+- [ ] Month-end snapshot (`source = app`) and re-run
 - [ ] Reports: dashboard, monthly, machine, shift, daily, top problems
 - [ ] **Checkpoint with Mukesh and the DGM**
 

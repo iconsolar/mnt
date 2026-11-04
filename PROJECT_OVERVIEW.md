@@ -46,10 +46,10 @@ This file is the contract for anyone (person or coding agent) working in this re
 | Part | Choice | Notes |
 |---|---|---|
 | Server OS | Windows Server (like ICON TRACE) | Waitress, not Gunicorn (Unix only) |
-| Backend | Python 3.12, Flask 3, SQLAlchemy 2, Alembic, PyMySQL | App factory pattern; migrations only through Alembic |
+| Backend | Python 3.14, Flask 3, SQLAlchemy 2, Alembic, PyMySQL | App factory pattern; migrations only through Alembic |
 | Web screens | Jinja2 templates, small vanilla JavaScript | **No CDN**: fonts, CSS and JS are served from the app (LAN has no internet) |
-| Database | MySQL 8, InnoDB, `utf8mb4` | Times stored in UTC (`DATETIME(3)`) |
-| Passwords / admin 2FA | argon2 (argon2-cffi), PyOTP for TOTP | TOTP for Admin and Super Admin, like ICON TRACE |
+| Database | MySQL 8 (8.4 LTS), InnoDB, `utf8mb4` | Times stored in UTC (`DATETIME(3)`) |
+| Passwords / admin 2FA | argon2 (argon2-cffi), PyOTP for TOTP | Password + TOTP on the web for Super Admin, Admin and Manager, with one-time recovery codes (D-52) |
 | i18n (web + push texts) | Flask-Babel | en, hi, bn |
 | Reverse proxy / TLS | Caddy with the internal CA's ACME endpoint (Smallstep step-ca, as planned for ICON TRACE) | Certificate carries the hostname **and** the server IP in SAN |
 | Mobile | Flutter (stable), Dart 3 | Android only. Riverpod, go_router, drift (local DB), mobile_scanner (QR), firebase_messaging + flutter_local_notifications, flutter_secure_storage, gen-l10n |
@@ -66,9 +66,9 @@ This file is the contract for anyone (person or coding agent) working in this re
 ## 5. Security rules
 
 - **Mobile login**: employee ID + password set by the manager (changed at first login), then the account is **bound to that phone**. One bound phone per person; moving to a new phone needs the manager to reset the binding. **Lockout after 5 failed attempts**; the manager unlocks. No SMS OTP.
-- Tokens: short-lived access token + long-lived refresh token tied to the bound device; refresh token kept in Android Keystore (flutter_secure_storage); tokens stored only as hashes on the server; revoked on unbind.
-- **Web login**: session cookie + CSRF protection. Admin and Super Admin sign in with TOTP (password as backup), like ICON TRACE.
-- **Per-screen permissions** (ICON TRACE pattern): every route checks the person's permission on the server. Role templates only pre-fill permissions; each person's permissions can be changed one by one. A denied view closes; it is not just a hidden button.
+- Tokens: short-lived access token + long-lived refresh token tied to the bound device, rotated on refresh (D-53); refresh token kept in Android Keystore (flutter_secure_storage); tokens stored only as hashes on the server; revoked on unbind, block and password reset.
+- **Web login**: session cookie + CSRF protection. Super Admin, Admin and Manager sign in with password + TOTP, with one-time recovery codes as backup (D-52). Phone logins stay password + device binding.
+- **Per-screen permissions** (ICON TRACE pattern): every route checks the person's permission on the server. Each person has one role (D-50); the role template pre-fills permissions, and each person's permissions can be changed one by one. A denied view closes; it is not just a hidden button.
 - TLS everywhere. The Flutter app **bundles the internal root CA certificate** and trusts it through Dart's `SecurityContext` (plus the system roots, for phase 2). **Never** turn off certificate checks (`badCertificateCallback` returning `true` is forbidden).
 - Secrets never enter git: `.env`, the FCM service-account file, the Android signing keystore and `key.properties`. The signing keystore is backed up offline; losing it means every phone must uninstall and reinstall.
 - Every admin change (settings, permissions, machines, factors, schedules) goes to an audit log with who and when.

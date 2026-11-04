@@ -8,7 +8,7 @@ Target: a normal breakdown takes **about ten taps in total, plus the cause the l
 
 | Person | In the ticket flow |
 |---|---|
-| **Raiser** | Line operator or shift (production) incharge (D-13). Raises, escalates, confirms or reopens. |
+| **Raiser** | Line operator or shift (production) incharge (D-13). Raises, escalates, confirms or reopens. Any production incharge may confirm at any time, raiser or not (D-56). |
 | **Group incharge** | The one on-duty incharge of a maintenance group for this shift (D-16). Assigns, handles help, opt-outs, handovers, reviews the 2nd reopen. |
 | **Lead** | The incharge if he put himself on the ticket, else the first person assigned (D-20). Accepts and claims. |
 | **Helper** | Other assigned technicians. Can request parts and ask to opt out. Otherwise taps nothing. |
@@ -24,7 +24,9 @@ Target: a normal breakdown takes **about ten taps in total, plus the cause the l
 |---|---|---|---|
 | **Stopped** | Runs from the declared stop time | All | Yes |
 | **Running with a fault** | None, until someone taps "Now stopped" | All | Yes |
-| **Job**: installs, changes, IT work (D-22) | Never | None; the incharge sets a target date (D-23) | Skipped (default) |
+| **Job**: installs, changes, IT work (D-22) | Never | No assign, accept or stopped-4h timers; a target date instead (D-23, D-60) | None (D-60) |
+
+Auto close 4 h after the claim applies to all three kinds.
 
 ## 3. States and transitions
 
@@ -33,6 +35,7 @@ Target: a normal breakdown takes **about ten taps in total, plus the cause the l
 | — | `raised` | Raise | Raiser |
 | `raised` | `assigned` | Assign people (lead picked by rule) | Group incharge, or the manager when no incharge is on duty |
 | `raised` | `raised` (new group) | Group handover, after the receiving incharge accepts | Group incharge |
+| `raised` | `raised` (re-routed) | Assign an incharge: the ticket goes to his inbox (and his group, if different); the 10-min assign timer restarts; he is not made lead (D-59) | Manager |
 | `raised`, `assigned` | `cancelled` | Cancel with a reason, only before any accept or part request (default) | Group incharge, manager |
 | `raised`, `assigned` | `cancelled` | Merge into another open ticket (default) | Group incharge |
 | `assigned` | `in_progress` | Accept | Lead only |
@@ -41,14 +44,16 @@ Target: a normal breakdown takes **about ten taps in total, plus the cause the l
 | `in_progress` | `in_progress` | Parts, help, escalation, team changes, shift handover, notes | See §7–§8 |
 | `in_progress`, `assigned` | `raised` (new group) | Group handover, after the receiving incharge accepts | Group incharge |
 | `in_progress` | `claimed` | Claim resolved, with the cause | Lead only |
-| `claimed` | `closed` (`confirmed`) | Working: close (after observation) | Raiser, the confirm handover person, or any production incharge if the raiser is gone (default) |
+| `claimed` | `closed` (`confirmed`) | Working: close (after observation; jobs have none) | Raiser, the confirm handover person, or any production incharge at any time (D-56) |
 | `claimed` | `closed` (`auto`) | 4 h after the claim with no answer | App |
 | `claimed` | `assigned` | 1st reopen: back to the same lead to accept | Raiser |
 | `claimed` | `review` | 2nd reopen | Raiser |
 | `claimed` | `manager_decision` | 3rd and later reopens | Raiser |
+| `claimed` | `claimed` | Different problem: no reopen; a new ticket opens with `parent_ticket_id` = this one (D-58) | Raiser |
 | `review` | `assigned` | Keep, add or change people | Group incharge |
 | `manager_decision` | `assigned` | Carry on, or change people | Manager |
 | `manager_decision` | `closed` (`manager`) | Close as not fixed, with a reason and a follow-up ticket | Manager |
+| `raised`, `assigned`, `in_progress`, `review`, `manager_decision` | `closed` (`not_needed`) | Close as not needed, with a reason, once the ticket has had an accept or a part request; before that it is a cancel (D-57) | Group incharge, manager |
 
 Nothing leaves `closed` or `cancelled`. A problem after close is a new ticket (§16).
 
@@ -81,7 +86,8 @@ The phone gives the ticket a UUID, so a raise made without signal is sent later 
 - The incharge picks one or more people, with or without himself (D-20). The app shows the lead as it will be: himself if he is on the ticket, otherwise the first person picked.
 - Assigning someone off duty or marked absent shows a warning; the incharge can still add them, with a reason (default).
 - The **accept timer: 5 min** starts (D-25). Only the lead accepts. On timeout the incharge is alerted to pick a new lead; the timer restarts for the new lead.
-- The manager assigns either an incharge (who then assigns people) or technicians directly. He never accepts.
+- The manager assigns either an incharge or technicians directly. He never accepts. Assigning an incharge is a **re-route**: the ticket goes to that incharge's inbox (and his group, if different) and the 10-min assign timer restarts; he is not made lead (D-59).
+- Jobs have no accept timer (D-60).
 
 ## 7. Team changes
 
@@ -115,7 +121,7 @@ There are **no reminders to technicians while work is in progress** (D-26). Afte
 - The lead writes the **cause in his own words** (D-36). The text box suggests causes written before on the same machine; the phone's voice typing works (default). A cause is required, in any language.
 - After a reopen, the lead writes the cause again at the next claim.
 - "Temporary fix" tick: downtime stops and a follow-up ticket opens for the real repair (default).
-- No parts form: the store records returns; anything issued and not returned counts as used (default).
+- No parts form: unused parts go back through a return request on the ticket (the requester asks, the manager approves or rejects, then the store confirms it has the part, D-61); anything issued and not returned counts as used (default).
 - The raiser (and any confirm handover person) is alerted.
 
 ## 10. Observation, confirm, auto close
@@ -127,11 +133,14 @@ There are **no reminders to technicians while work is in progress** (D-26). Afte
 | 2 – 4 h | Close (working) or reopen | — |
 | at 4 h | — | **Auto close**, shown as unconfirmed (D-29, default) |
 
-Jobs skip the observation: they can be confirmed straight away; auto close still applies at 4 h (default).
+Jobs have no observation: they can be confirmed straight away; auto close still applies at 4 h (D-60).
+
+Any production incharge may confirm at any time, on the same terms as the raiser (D-56).
 
 ## 11. Reopen
 
-- One-tap reason: **not working**, **partly working**, or **different problem** (default). "Different problem" opens a new linked ticket instead of reopening this one.
+- One-tap reason: **not working**, **partly working**, or **different problem** (default).
+- **Different problem** is not a reopen. The original stays claimed and closes normally (confirm after the 2 h observation, or auto close). A new ticket opens with `parent_ticket_id` pointing to the original; its stop time can't be earlier than the original's claim (D-58).
 - **1st reopen** → back to the same lead, who accepts again (accept timer starts).
 - **2nd reopen** → `review`: the incharge keeps, adds or changes people (D-38).
 - **3rd and later** → `manager_decision`: the manager carries on, changes people, or closes it as not fixed with a follow-up (D-38).
@@ -144,6 +153,7 @@ Only on-duty people get ticket alerts. Every alert also lands in the in-app list
 | When | Raiser | Incharge | Technician | Store | Manager |
 |---|---|---|---|---|---|
 | Ticket raised | | ● | | | ○ no incharge on duty |
+| Manager re-routes to an incharge | | ● that incharge | | | |
 | Ticket assigned | | | ● assigned people | | |
 | Not assigned in 10 min | | | | | ● |
 | Not accepted in 5 min | | ● | | | |
@@ -152,6 +162,8 @@ Only on-duty people get ticket alerts. Every alert also lands in the in-app list
 | Opt-out request | | ● | ○ lead | | |
 | Parts requested | | | | ● | |
 | Parts issued | | | ● requester | | |
+| Return requested | | | | | ● |
+| Return approved or rejected | | | ● requester | ● | |
 | Group handover | | ● receiving incharge | | | |
 | Shift handover | ○ confirm side | | ● receiving person | | |
 | Claim resolved | ● | | | | |
@@ -162,16 +174,18 @@ Only on-duty people get ticket alerts. Every alert also lands in the in-app list
 
 ● always · ○ only in the case named
 
-## 13. Cancel and merge (default)
+## 13. Cancel, merge, close as not needed
 
-- Cancel: the incharge or manager, with a reason, only before any accept or part request.
-- Merge: two tickets for the same stoppage → the incharge merges them; the earliest stop time is kept; raisers of both stay on the surviving ticket.
+- Cancel (default): the incharge or manager, with a reason, only before any accept or part request.
+- Merge (default): two tickets for the same stoppage → the incharge merges them; the earliest stop time is kept; raisers of both stay on the surviving ticket.
+- **Close as not needed** (D-57): the group incharge or manager, with a reason, from any open state except claimed, once the ticket has had an accept or a part request (before that it is a cancel). `close_type` = `not_needed`. Issued parts come back through returns. Not counted as a breakdown; listed with reasons in the manager's report.
 
 ## 14. Jobs
 
-- Kind Job; no downtime; no assign, accept or 4-h timers; the incharge sets a target date (D-23).
+- Kind Job; no downtime; no assign, accept or stopped-4h timers; the incharge sets a target date (D-23, D-60).
+- No observation: a job can be confirmed straight away after the claim. Auto close 4 h after the claim still applies (D-60).
 - Past the target date: the incharge is alerted, then the manager (default).
-- The rest of the flow (assign, accept, parts, claim, confirm, reopen) is the same.
+- The rest of the flow (assign, accept, parts, claim, confirm, reopen) is the same, without those timers.
 
 ## 15. Downtime (summary)
 
@@ -189,7 +203,7 @@ Downtime of a ticket runs from the declared stop time to the last claim resolved
 - Power cut stops everything → one parent ticket; stopped machines link to it.
 
 **Assign and accept**
-- No incharge on duty → the manager gets it and assigns an incharge or technicians.
+- No incharge on duty → the manager gets it and assigns an incharge (a re-route; the 10-min timer restarts) or technicians.
 - Nobody from the group on duty → the manager is alerted at once.
 - Not assigned in 10 min → the manager is alerted and can assign directly.
 - Lead doesn't accept in 5 min → the incharge is alerted and picks a new lead.
@@ -204,7 +218,7 @@ Downtime of a ticket runs from the declared stop time to the last claim resolved
 - Shift ends with no handover → the ticket stays; the incoming incharge reassigns.
 - Lead leaves mid-job → passes the lead; the new lead accepts.
 - Part not in stock → waiting for material; the manager sees it ageing.
-- Wrong part issued → returned unused; new request; both logged.
+- Wrong part issued → a return request for it and a new part request; both logged.
 - A second fault found → new linked ticket with its own clocks.
 - Needs a vendor or a planned stop → no hold; the clock keeps counting.
 
@@ -212,16 +226,16 @@ Downtime of a ticket runs from the declared stop time to the last claim resolved
 - Raiser tries to close early → close unlocks 2 h after the claim.
 - Fails during the observation → the raiser reopens; the gap counts as downtime.
 - Claimed and reopened again and again → 2nd reopen the incharge reviews; 3rd the manager decides.
-- Reopened for a different fault → "different problem" opens a new linked ticket.
-- Raiser gone when it's claimed → the handover person confirms, or it auto closes at 4 h.
-- Raiser gone, no handover → any production incharge confirms.
+- Reopened for a different fault → "different problem": the original stays claimed and closes normally; a new ticket opens with its parent pointing to the original, and its stop time can't be earlier than the original's claim.
+- Raiser, handover person or any production incharge confirms; any production incharge may do so at any time. Nobody answers → it auto closes at 4 h.
 - Confirmed by mistake → closed stays closed; a new ticket, flagged as a repeat.
 - Same fault again after close → new ticket, flagged as a repeat.
 
 **Parts** (the store side is in `inventory.md`)
 - Part kept, never returned → counts as used; shows in the manager's parts report.
 - Part taken without a ticket → the store doesn't issue it.
-- Cancelled after parts were issued → can't cancel; close as not needed and return the parts.
+- Part returned → return request on the ticket; the manager approves or rejects; then the store confirms it has the part. Only then does stock change (D-61).
+- Cancelled after parts were issued → can't cancel; close as not needed (§13); the parts come back through returns.
 
 **System**
 - No new schedule uploaded → the last schedule stays in use.
@@ -235,16 +249,16 @@ Downtime of a ticket runs from the declared stop time to the last claim resolved
 | Role | Screens |
 |---|---|
 | Raiser | Home (Raise button, my open tickets) · Raise · Ticket (timeline, Escalate, Now stopped, confirm or reopen, hand over the confirm step) |
-| Group incharge | Inbox (new and unassigned, with timers) · Assign · Ticket (help, escalations, opt-outs, team changes, group handover, cancel or merge, review) · Today's team (on duty, mark absent) |
-| Technician | My tickets · Ticket (accept, request parts, need help, opt out, shift handover, claim with cause) |
-| Manager | Needs me (no incharge, 10-min timeouts, 2nd escalations, 3rd reopens, 4-h stoppages) · Assign · Decide |
+| Group incharge | Inbox (new and unassigned, with timers) · Assign · Ticket (help, escalations, opt-outs, team changes, group handover, cancel or merge, close as not needed, review) · Today's team (on duty, mark absent) |
+| Technician | My tickets · Ticket (accept, request parts, return unused part, need help, opt out, shift handover, claim with cause) |
+| Manager | Needs me (no incharge, 10-min timeouts, 2nd escalations, 3rd reopens, 4-h stoppages) · Assign · Decide (including close as not needed) · Returns list (the day's return requests) |
 
 **Web**
 
 | Who | Screens |
 |---|---|
 | Admin, manager | People (bulk import, permissions, unlock, reset device) · Groups · Shifts · Schedule upload · Absences · Lines, machine types, machines and lanes, QR sheet printing · Places · Settings (timers, app version) · Parts register (read-only until stage 7) · Ticket board and ticket detail · Back-fill · Imports |
-| Store | Part requests (issue) |
+| Store | Part requests (issue) · Returns to receive |
 | Viewer (DGM) | Ticket board (read-only); KPI reports in stage 8 |
 
 ## 18. Tap budget (default)

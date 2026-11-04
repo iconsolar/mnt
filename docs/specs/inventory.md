@@ -11,7 +11,7 @@ Stock on hand is never typed. It is the sum of `stock_movements`:
 | Opening | + | Go-live import (§8) | — |
 | Receipt | + | Store | — |
 | Issue | − | Store, against a ticket number | — (D-41: stock drops at issue) |
-| Return | + | Store records; stock changes only after approval | **Manager** (D-42) |
+| Return | + | Store, at its confirmation that it has the part; approved returns in good condition only | **Manager** first (D-42, D-61) |
 | Count adjustment | ± | Store records the count; app proposes the difference | **Manager** |
 
 Movements are append-only, like ticket events. Outputs: the reorder list, stock value, and consumption value (which feeds `kpi.md` §8).
@@ -46,12 +46,15 @@ Movements are append-only, like ticket events. Outputs: the reorder list, stock 
 
 ## 5. Return unused parts
 
-1. Unused or wrong part comes back; the store checks it is the same part and in good condition.
-2. The store marks it **held**: on the shelf, not yet in stock (default).
-3. The manager approves or rejects the day's returns from one list (default; approval itself is D-42, no value threshold, D-43).
-4. Approved → stock goes up; consumption is reduced in the month of approval; closed months stay as they were.
-5. Rejected → scrap or repair, with a reason; stock does not change.
-6. Anything issued and not returned counts as used.
+Status: requested → approved or rejected → received (D-61).
+
+1. The requester raises a **return request on the ticket**: part and quantity, up to what was issued on it. He keeps the part until the manager answers.
+2. The manager approves or rejects it from the day's list (one list a day is a default; approval itself is D-42, no value threshold, D-43). A rejection carries a reason. The requester and the store are told the answer.
+3. Then the store **confirms it has received the part**, and checks it is the same part and in good condition.
+4. Approved and in good condition → stock goes up. Consumption is reduced in the month of the store's confirmation; closed months stay as they were.
+5. Rejected, damaged or not the issued part → scrap or repair shelf, stock unchanged, and the manager sees it.
+6. **Stock and consumption change only at the store's confirmation.**
+7. An approved return never handed in counts as used and stays on the store's list with its age. Anything issued and not returned counts as used.
 
 ## 6. Stock count (default)
 
@@ -80,12 +83,13 @@ Movements are append-only, like ticket events. Outputs: the reorder list, stock 
 
 - Asked for more than in stock → the app blocks it; the store recounts the bin.
 - No ticket number → the store doesn't issue.
-- Wrong part issued → return it (manager approves) and issue the right one.
+- Wrong part issued → a return request for it (manager, then store) and issue the right one.
 - Part kept, never returned → counts as used; shows in the manager's parts report.
 - Part not in the master → the store adds it; the manager sees new parts.
 - Same part entered twice → the store merges them; history kept.
 - Price missing → value shown as "no price"; listed for the store.
 - Price in $ → the manager sets the month's rate; the ₹ value follows.
-- Returned after month end → reduces consumption in the approval month.
+- Returned after month end → reduces consumption in the month the store confirms it.
+- Approved, never handed in → counts as used; the store's list shows its age.
 - Count doesn't match → adjustment with a reason; logged.
 - Minimum level blank or zero → never reorders; listed for the store to set.
