@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ person.employee_code if person else _('people.new') }}</h1>
+<form method="post" class="form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {% if not person %}
+  <label for="employee_code">{{ _('people.field.employee_code') }}</label>
+  <input id="employee_code" name="employee_code" value="{{ values.employee_code or '' }}" maxlength="32" required>
+  {% endif %}
+  <label for="name">{{ _('people.field.name') }}</label>
+  <input id="name" name="name" value="{{ values.name or (person.name if person else '') }}" maxlength="120" required>
+  <label for="phone">{{ _('people.field.phone') }}</label>
+  <input id="phone" name="phone" value="{{ values.phone or (person.phone if person and person.phone else '') }}" maxlength="20">
+  <label for="role">{{ _('people.field.role') }}</label>
+  {% set chosen_role = values.role or (person.role.code if person else '') %}
+  <select id="role" name="role" required>
+    {% for role in roles %}<option value="{{ role.code }}" {% if role.code == chosen_role %}selected{% endif %}>{{ _(role.name) }}</option>{% endfor %}
+  </select>
+  <label for="language">{{ _('people.field.language') }}</label>
+  {% set chosen_language = values.language or (person.language if person else 'en') %}
+  <select id="language" name="language">
+    {% for code in languages %}<option value="{{ code }}" {% if code == chosen_language %}selected{% endif %}>{{ _('language.' ~ code) }}</option>{% endfor %}
+  </select>
+  {% if person %}
+  <label for="status">{{ _('people.field.status') }}</label>
+  <select id="status" name="status">
+    {% for status in statuses %}<option value="{{ status }}" {% if status == (values.status or person.status) %}selected{% endif %}>{{ _('people.status.' ~ status) }}</option>{% endfor %}
+  </select>
+  <label class="check"><input type="checkbox" name="reset_permissions" value="1"> {{ _('people.reset_to_template') }}</label>
+  {% endif %}
+  <button type="submit">{{ _('action.save') }}</button>
+</form>
+{% endblock %}

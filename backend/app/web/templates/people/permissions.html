@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('screen.permissions') }}: {{ person.name }} ({{ person.employee_code }})</h1>
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>{{ _('permissions.screen') }}</th><th>{{ _('permissions.view') }}</th><th>{{ _('permissions.act') }}</th></tr></thead>
+    <tbody>
+    {% for screen in screens %}
+      <tr>
+        <td>{{ _(screen.name_key) }}</td>
+        <td><input type="checkbox" name="view_{{ screen.code }}" value="1" aria-label="{{ _('permissions.view') }}" {% if person.can(screen.code, 'view') %}checked{% endif %} {% if not current_user.can(screen.code, 'view') %}disabled{% endif %}></td>
+        <td><input type="checkbox" name="act_{{ screen.code }}" value="1" aria-label="{{ _('permissions.act') }}" {% if person.can(screen.code, 'act') %}checked{% endif %} {% if not current_user.can(screen.code, 'act') %}disabled{% endif %}></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% if current_user.can('permissions', 'act') %}<button type="submit">{{ _('action.save') }}</button>{% endif %}
+</form>
+{% endblock %}
