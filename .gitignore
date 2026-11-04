@@ -1,0 +1,42 @@
+# Secrets: never commit
+.env
+*.env.local
+secrets/
+*service-account*.json
+google-services.json
+key.properties
+*.jks
+*.keystore
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+instance/
+*.log
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/build/
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/ios/
+
+# Company data: Excel sources and exports stay outside the repo
+*.xlsx
+*.xlsm
+*.xls
+data/
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

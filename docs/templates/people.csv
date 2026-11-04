@@ -1,0 +1,4 @@
+employee_code,name,phone,role_template,groups,language
+EXAMPLE-0001,Example operator,,line_operator,,hi
+EXAMPLE-0002,Example technician,,technician,Automation,hi
+EXAMPLE-0003,Example incharge,,maintenance_incharge,Automation;Utility,en

@@ -1,0 +1,6 @@
+code,name,machine_type,line,number,lane,parent_code,feeds_code,default_group
+EXAMPLE-STR-08,Stringer 8,Stringer,EXAMPLE-L1,8,,,,Automation
+EXAMPLE-STR-08A,Stringer 8 lane A,Stringer,EXAMPLE-L1,8,A,EXAMPLE-STR-08,,Automation
+EXAMPLE-STR-08B,Stringer 8 lane B,Stringer,EXAMPLE-L1,8,B,EXAMPLE-STR-08,,Automation
+EXAMPLE-BUS-08,Bussing 8,Auto Bussing,EXAMPLE-L1,8,,,EXAMPLE-STR-08,Automation
+EXAMPLE-CMP-01,Air compressor 1,Air Compressor,,1,,,,Utility
